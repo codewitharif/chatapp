@@ -9,15 +9,15 @@ const cors = require("cors");
 const dotenv = require("dotenv").config();
 
 const app = express();
-const allowedOrigins = [
-  "http://localhost:5173", // dev mode (vite)
-  "http://localhost:3000", // dev mode (CRA)
-  "https://chatappx-lyart.vercel.app", // vercel deploy
-];
+// const allowedOrigins = [
+//   "http://localhost:5173", // dev mode (vite)
+//   "http://localhost:3000", // dev mode (CRA)
+//   "https://chatappx-lyart.vercel.app", // vercel deploy
+// ];
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: "https://chatappx-lyart.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
   })
