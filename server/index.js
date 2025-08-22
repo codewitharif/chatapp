@@ -15,13 +15,7 @@ const app = express();
 //   "https://chatappx-lyart.vercel.app", // vercel deploy
 // ];
 
-app.use(
-  cors({
-    origin: "https://chatappx-lyart.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 app.use(express.static("public")); // Serve static files
