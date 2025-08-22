@@ -22,7 +22,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(cors());
+
 app.use(express.json());
 app.use(express.static("public")); // Serve static files
 
