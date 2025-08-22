@@ -35,7 +35,7 @@ const MessageSchema = new mongoose.Schema({
 });
 const Message = mongoose.model("Message", MessageSchema);
 
-const SECRET = "mysecret";
+const SECRET = process.env.SECRET_KEY;
 const connectedUsers = new Map(); // Track connected users
 
 // Register API
@@ -81,6 +81,61 @@ app.post("/login", async (req, res) => {
     res.json({ token, username });
   } catch (error) {
     res.status(500).json({ error: "Login failed" });
+  }
+});
+
+// 🔹 NEW: Token verification API
+app.post("/auth/verify", async (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({
+        success: false,
+        error: "No token provided",
+      });
+    }
+
+    const token = authHeader.substring(7); // Remove "Bearer " prefix
+
+    // Verify JWT token
+    const decoded = jwt.verify(token, SECRET);
+
+    // Optional: Check if user still exists in database
+    const user = await User.findOne({ username: decoded.username });
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        error: "User not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      username: decoded.username,
+      message: "Token is valid",
+    });
+  } catch (error) {
+    console.error("Token verification failed:", error);
+
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({
+        success: false,
+        error: "Token expired",
+      });
+    }
+
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({
+        success: false,
+        error: "Invalid token",
+      });
+    }
+
+    res.status(500).json({
+      success: false,
+      error: "Token verification failed",
+    });
   }
 });
 
