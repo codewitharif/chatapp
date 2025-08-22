@@ -1,0 +1,26 @@
+/* src/styles/global.css */
+/* @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap'); */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* बाकी CSS वही रहेगा जैसा आपने दिया था */
+/* आपके original CSS को यहाँ paste करें */
