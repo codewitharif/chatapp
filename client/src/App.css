@@ -433,3 +433,158 @@ body {
     display: block;
   }
 }
+
+/*  */
+
+/* Add these styles to your App.css for search functionality */
+
+/* Search Section Styles */
+.search-section {
+  padding: 20px;
+  background: #34495e;
+  border-bottom: 1px solid #4a5f7a;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 40px 12px 15px;
+  border: 2px solid #4a5f7a;
+  border-radius: 20px;
+  background: #2c3e50;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: #bdc3c7;
+}
+
+.search-input:focus {
+  border-color: #3498db;
+  background: #1a252f;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #bdc3c7;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  height: 25px;
+}
+
+.clear-search-btn:hover {
+  background: #4a5f7a;
+  color: white;
+}
+
+.search-status {
+  text-align: center;
+  padding: 8px;
+  color: #3498db;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.search-error {
+  text-align: center;
+  padding: 8px;
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 8px;
+  background: rgba(231, 76, 60, 0.1);
+  border-radius: 5px;
+}
+
+.no-results {
+  padding: 15px 25px;
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.no-items {
+  padding: 10px 25px;
+  text-align: center;
+  color: #7f8c8d;
+  font-size: 12px;
+}
+
+/* User item enhancements for search results */
+.user-item .user-status {
+  font-size: 11px;
+  opacity: 0.8;
+  color: #bdc3c7;
+  margin-top: 2px;
+}
+
+.section-divider {
+  height: 1px;
+  background: #4a5f7a;
+  margin: 10px 0;
+}
+
+/* Search section animations */
+.search-section {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile responsive for search */
+@media (max-width: 768px) {
+  .search-section {
+    padding: 15px;
+  }
+
+  .search-input {
+    padding: 10px 35px 10px 12px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-section {
+    padding: 12px;
+  }
+
+  .search-input {
+    padding: 9px 30px 9px 10px;
+    font-size: 12px;
+  }
+
+  .clear-search-btn {
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+  }
+}

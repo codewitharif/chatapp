@@ -221,6 +221,53 @@ app.get("/users/recent", async (req, res) => {
   }
 });
 
+// 🔹 NEW: User search API
+app.get("/users/search", async (req, res) => {
+  try {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "No token provided" });
+
+    const decoded = jwt.verify(token, SECRET);
+    const { q: searchQuery } = req.query;
+
+    if (!searchQuery || searchQuery.trim().length < 1) {
+      return res.status(400).json({ error: "Search query required" });
+    }
+
+    // Search users by username (case insensitive, partial match)
+    // Exclude current user from results
+    const users = await User.find({
+      username: {
+        $regex: searchQuery.trim(),
+        $options: "i", // case insensitive
+      },
+      username: { $ne: decoded.username }, // exclude current user
+    })
+      .select("username createdAt") // only return username and createdAt
+      .limit(10) // limit results to 10 users
+      .sort({ username: 1 }); // sort alphabetically
+
+    // Add online status to each user
+    const usersWithStatus = users.map((user) => ({
+      username: user.username,
+      createdAt: user.createdAt,
+      isOnline: connectedUsers.has(user.username),
+    }));
+
+    res.json({
+      success: true,
+      users: usersWithStatus,
+      count: usersWithStatus.length,
+    });
+  } catch (error) {
+    console.error("User search failed:", error);
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({ error: "Invalid token" });
+    }
+    res.status(500).json({ error: "Search failed" });
+  }
+});
+
 // Serve main page
 app.get("/", (req, res) => {
   // res.sendFile(path.join(__dirname, "public", "index.html"));
