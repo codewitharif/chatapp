@@ -9,13 +9,14 @@ const cors = require("cors");
 const dotenv = require("dotenv").config();
 
 const app = express();
-// const allowedOrigins = [
-//   "http://localhost:5173", // dev mode (vite)
-//   "http://localhost:3000", // dev mode (CRA)
-//   "https://chatappx-lyart.vercel.app", // vercel deploy
-// ];
+const allowedOrigins = [
+  "https://chatappclient-production.up.railway.app",
+  "http://localhost:5173", // dev mode (vite)
+  "http://localhost:3000", // dev mode (CRA)
+  "https://chatappx-lyart.vercel.app", // vercel deploy
+];
 
-app.use(cors());
+app.use(cors(allowedOrigins));
 
 app.use(express.json());
 app.use(express.static("public")); // Serve static files
