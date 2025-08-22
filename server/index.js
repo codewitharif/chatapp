@@ -6,6 +6,7 @@ const { WebSocketServer } = require("ws");
 const http = require("http");
 const path = require("path");
 const cors = require("cors");
+const dotenv = require("dotenv").config();
 
 const app = express();
 app.use(cors());
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use(express.static("public")); // Serve static files
 
 mongoose
-  .connect("mongodb://localhost:27017/chatapp")
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("Database connected successfully"))
   .catch((err) => console.log("Database connection error:", err));
 
