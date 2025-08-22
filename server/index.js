@@ -167,7 +167,8 @@ app.get("/users/recent", async (req, res) => {
 
 // Serve main page
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  // res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.send("server is running");
 });
 
 // HTTP + WS server
